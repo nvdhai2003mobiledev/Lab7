@@ -61,10 +61,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:paddingHorizontal="30dp"
+        android:paddingHorizontal="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt3">
+
+        <Button
+            android:id="@+id/btn_insert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Insert" />
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Update" />
 
         <Button
             android:id="@+id/btn_select"
@@ -76,11 +90,11 @@
             tools:layout_editor_absoluteY="396dp" />
 
         <Button
-            android:id="@+id/demo71btn"
+            android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Update"
+            android:text="Delete"
             tools:layout_editor_absoluteX="199dp"
             tools:layout_editor_absoluteY="396dp" />
 

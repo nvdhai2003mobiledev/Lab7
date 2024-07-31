@@ -3,27 +3,36 @@ package nvdhai2003.restapi.lab7;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
-    private Button bntSelect;
+    private Button bntSelect, btnInsert, btnDelete, btnUpdate;
     private TextView tvKQ;
+    private EditText txt1, txt2, txt3;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,11 +47,109 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bntSelect = findViewById(R.id.btn_select);
+        btnInsert = findViewById(R.id.btn_insert);
+        btnDelete = findViewById(R.id.btn_delete);
+        btnUpdate = findViewById(R.id.btn_update);
+        txt1 = findViewById(R.id.txt1);
+        txt2 = findViewById(R.id.txt2);
+        txt3 = findViewById(R.id.txt3);
         tvKQ = findViewById(R.id.tv_kq);
 
         bntSelect.setOnClickListener(v -> {
             selectVolley();
         });
+
+        btnInsert.setOnClickListener(v -> {
+            insertVolley();
+        });
+
+        btnDelete.setOnClickListener(v -> {
+            deleteVolley();
+        });
+
+        btnUpdate.setOnClickListener(v -> {
+            updateVolley();
+        });
+    }
+
+    private void updateVolley() {
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = "https://hungnq28.000webhostapp.com/su2024/update.php";
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                tvKQ.setText(response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                tvKQ.setText(error.getMessage());
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> mydata = new HashMap<>();
+                mydata.put("MaSP", txt1.getText().toString());
+                mydata.put("TenSP", txt2.getText().toString());
+                mydata.put("MoTa", txt3.getText().toString());
+                return mydata;
+            }
+        };
+        queue.add(request);
+    }
+
+    private void deleteVolley() {
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = "https://hungnq28.000webhostapp.com/su2024/delete.php";
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                tvKQ.setText(response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                tvKQ.setText(error.getMessage());
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> mydata = new HashMap<>();
+                mydata.put("MaSP", txt1.getText().toString());
+                return mydata;
+            }
+        };
+        queue.add(request);
+    }
+
+    private void insertVolley() {
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = "https://hungnq28.000webhostapp.com/su2024/insert.php";
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                tvKQ.setText(response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                tvKQ.setText(error.getMessage());
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> mydata = new HashMap<>();
+                mydata.put("MaSP", txt1.getText().toString());
+                mydata.put("TenSP", txt2.getText().toString());
+                mydata.put("MoTa", txt3.getText().toString());
+                return mydata;
+            }
+        };
+        queue.add(request);
+
     }
 
     String strKQ = "";
