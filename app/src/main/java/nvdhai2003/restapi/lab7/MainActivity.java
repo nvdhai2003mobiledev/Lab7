@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         txt2 = findViewById(R.id.txt2);
         txt3 = findViewById(R.id.txt3);
         tvKQ = findViewById(R.id.tv_kq);
-
         bntSelect.setOnClickListener(v -> {
             selectVolley();
         });
